@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Add Student{% endblock %}
+{% block content %}
+<form method="post">
+    <h3 align="center">Add student</h3>
+    <div class="form-group">
+        <label for="fname">First name</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            id="fname" 
+            name="fname" 
+            placeholder="Enter first name"
+            required
+        />
+    </div>
+    <div class="form-group">
+        <label for="lname">Last name</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            id="lname" 
+            name="lname" 
+            placeholder="Enter last name"
+            required
+        />
+    </div>
+    <div class="form-group">
+        <label for="student_course">Course</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            id="student_course" 
+            name="student_course" 
+            placeholder="Enter course"
+            required
+        />
+    </div>
+    <div class="form-group">
+        <label for="gender">Gender</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            id="gender" 
+            name="gender" 
+            placeholder="Enter gender"
+            required
+        />
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect2">Select year level</label>
+        <select multiple class="form-control" id="level" name="level">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

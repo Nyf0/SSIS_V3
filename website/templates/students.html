@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Students{% endblock%}
+{% block content %}
+<table class="table" id="students">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Course</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Year Level</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for detail in studentdetails %}  
+        <tr>
+          <form method="post" action="/edit-student" onsubmit="return confirmATION('{{detail[0]}}')">
+            <td><input type="hidden" name="ID" value="{{detail[0]}}">{{detail[0]}}</td>
+            <td><input type="hidden" name="fname" value="{{detail[1]}}"><div contenteditable="true">{{detail[1]}}</div></td>
+            <td><input type="hidden" name="lname" value="{{detail[2]}}"><div contenteditable="true">{{detail[2]}}</div></td>
+            <td><input type="hidden" name="course" value="{{detail[3]}}"><div contenteditable="true">{{detail[3]}}</div></td>
+            <td><input type="hidden" name="gender" value="{{detail[4]}}"><div contenteditable="true">{{detail[4]}}</div></td>
+            <td><input type="hidden" name="level" value="{{detail[5]}}"><div contenteditable="true">{{detail[5]}}</div></td>
+            <td>
+              <button type="submit" class="btn btn-warning">Edit</button>
+              <form method="post">
+                <input type="hidden" name="student_id" value="{{detail[0]}}">
+                <button type="submit" formaction="/delete-student" onsubmit="return confirmATION('{{detail[0]}}')" class="btn btn-danger">Delete</button>
+              </form>
+          </td>            
+        </form>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="form-group" align="right">
+    <button type="button" class="btn btn-primary" onclick="location.href='/add-student'">Add student</button>
+</div>
+
+<script>
+  function confirmATION(studCode) {
+      if (confirm('Are you sure you want to modify this student permanently?')) {
+          // If the user confirms, let the form submission proceed.
+          return true;
+      } else {
+          // If the user cancels, prevent the form submission.
+          return false;
+      }
+  }
+</script>
+{% endblock %}

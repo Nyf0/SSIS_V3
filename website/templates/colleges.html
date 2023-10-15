@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Colleges{% endblock%}
+{% block content %}
+<table class="table" id="colleges">
+    <thead>
+      <tr>
+        <th scope="col">College code</th>
+        <th scope="col">College Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>  
+        {% for detail in collegedetails %}  
+        <tr>
+          <form method="post" action="/edit-college" onsubmit="return confirmATION('{{detail[0]}}')">
+            <td><input type="hidden" name="code" value="{{detail[0]}}">{{detail[0]}}</td>
+            <td><input type="hidden" name="name" value="{{detail[1]}}"><div contenteditable="true">{{detail[1]}}</div></td>
+            <td>
+              <button type="submit" class="btn btn-warning">Edit</button>
+              <form method="post">
+                <input type="hidden" name="college_code" value="{{detail[0]}}">
+                <button type="submit" formaction="/delete-college" onsubmit="return confirmATION('{{detail[0]}}')" class="btn btn-danger">Delete</button>
+            </form>
+          </td>            
+        </form>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="form-group" align="right">
+    <button type="button" class="btn btn-primary" onclick="location.href='/add-college'">Add college</button>
+</div>
+
+<script>
+  function confirmATION(collegeCode) {
+      if (confirm('Are you sure you want to modify this college permanently?')) {
+          // If the user confirms, let the form submission proceed.
+          return true;
+      } else {
+          // If the user cancels, prevent the form submission.
+          return false;
+      }
+  }
+</script>
+
+{% endblock %}
