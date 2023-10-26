@@ -8,7 +8,8 @@ def home():
     cur = mysql.connection.cursor()
 
     # Select data from the students, courses, and colleges tables
-    cur.execute("SELECT * FROM students ORDER BY student_id DESC LIMIT 5")
+    sql = f"SELECT * FROM students ORDER BY student_id DESC LIMIT 5"
+    cur.execute(sql)
     students = cur.fetchall()
 
     cur.execute("SELECT * FROM courses ORDER BY code DESC LIMIT 5")
