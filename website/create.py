@@ -13,20 +13,26 @@ def add_student():
         gender = request.form.get('gender')
         level = request.form.get('level')
 
-        if len(fname) < 1:
-            flash('This cannot be empty!', category='error')
-        if len(lname) < 1:
-            flash('This cannot be empty!', category='error')
-        elif len(course) < 1:
-            flash('A course must be provided!', category='error')
+        cur.execute("SELECT code FROM courses WHERE code = %s", (course,))
+        cor = cur.fetchone()
+
+        if cor:
+            if len(fname) < 1:
+                flash('This cannot be empty!', category='error')
+            if len(lname) < 1:
+                flash('This cannot be empty!', category='error')
+            elif len(course) < 1:
+                flash('A course must be provided!', category='error')
+            else:
+                #add student to database
+                cur.execute("INSERT INTO students (fname, lname, course, gender, level) VALUES (%s, %s, %s, %s, %s)", (fname, lname, course, gender, level))
+                mysql.connection.commit()
+                flash('Student added successfully!', category='success')
+                cur.close()
+                pass
+                return redirect('/students')
         else:
-            #add student to database
-            cur.execute("INSERT INTO students (fname, lname, course, gender, level) VALUES (%s, %s, %s, %s, %s)", (fname, lname, course, gender, level))
-            mysql.connection.commit()
-            flash('Student added successfully!', category='success')
-            cur.close()
-            pass
-            return redirect('/students')
+            flash('Course does not exist!', category='error')
         
     return render_template("add_student.html")
 
@@ -38,19 +44,25 @@ def add_course():
         name = request.form.get('name')
         college = request.form.get('course_college')
 
-        if len(code) < 1:
-            flash('This cannot be empty!', category='error')
-        if len(name) < 1:
-            flash('This cannot be empty!', category='error')
-        elif len(college) < 1:
-            flash('An associated college must exist!', category='error')
+        cur.execute("SELECT code FROM colleges WHERE code = %s", (college,))
+        col = cur.fetchone()
+
+        if col:
+            if len(code) < 1:
+                flash('This cannot be empty!', category='error')
+            if len(name) < 1:
+                flash('This cannot be empty!', category='error')
+            elif len(college) < 1:
+                flash('An associated college must exist!', category='error')
+            else:
+                #add student to database
+                cur.execute("INSERT INTO courses (code, name, college) VALUES (%s, %s, %s)", (code, name, college))
+                mysql.connection.commit()
+                flash('Course added successfully!', category='success')
+                cur.close()
+                return redirect('/courses')
         else:
-            #add student to database
-            cur.execute("INSERT INTO courses (code, name, college) VALUES (%s, %s, %s)", (code, name, college))
-            mysql.connection.commit()
-            flash('Course added successfully!', category='success')
-            cur.close()
-            return redirect('/courses')
+            flash('College does not exist!', category='error')
 
     return render_template("add_course.html")
 

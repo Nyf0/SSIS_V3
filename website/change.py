@@ -43,12 +43,12 @@ def edit_course():
         # Get the college code from the form
         college_code = request.form.get('college')
 
-        # Check if the college code exists in the colleges table
+        # Check if the college exists in the colleges table
         cur.execute("SELECT code FROM colleges WHERE code = %s", (college_code,))
         existing_college = cur.fetchone()
 
         if existing_college:
-            # The college code exists, so you can proceed with the UPDATE query
+            # The college exists, so you can proceed with the UPDATE query
             cur.execute("UPDATE courses SET name = %s, college = %s WHERE code = %s", (name, college, code))
             mysql.connection.commit()
             flash('Course editted successfully!', category='success')
