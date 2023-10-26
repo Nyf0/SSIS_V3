@@ -4,7 +4,7 @@ from config import DB_USERNAME, DB_PASSWORD, DB_NAME, DB_HOST, SECRET_KEY, BOOTS
 
 mysql = MySQL()
 
-def create_app(test_config=None):
+def create_app():
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
             SECRET_KEY=SECRET_KEY,
@@ -18,13 +18,13 @@ def create_app(test_config=None):
     mysql.init_app(app)
 
     from .views import views
-    from .change import change
-    from .create import create
-    from .delete import delete
+    from .student import student as student_blueprint
+    from .course import course as course_blueprint
+    from .college import college as college_blueprint
 
+    app.register_blueprint(student_blueprint, url_prefix='/')
+    app.register_blueprint(course_blueprint, url_prefix='/')
+    app.register_blueprint(college_blueprint, url_prefix='/')
     app.register_blueprint(views, url_prefix='/')
-    app.register_blueprint(change, url_prefix='/')
-    app.register_blueprint(create, url_prefix='/')
-    app.register_blueprint(delete, url_prefix='/')
 
     return app

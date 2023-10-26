@@ -6,7 +6,6 @@ views = Blueprint('views', __name__)
 @views.route('/')
 def home():
     cur = mysql.connection.cursor()
-
     # Select data from the students, courses, and colleges tables
     sql = f"SELECT * FROM students ORDER BY student_id DESC LIMIT 5"
     cur.execute(sql)
@@ -19,36 +18,6 @@ def home():
     colleges = cur.fetchall()
 
     return render_template("home.html", students=students, courses=courses, colleges=colleges)
-
-@views.route('/students')
-def studs():
-    cur = mysql.connection.cursor()
-
-    students = cur.execute("SELECT * FROM students")
-
-    if students > 0:
-        studentdeets = cur.fetchall()
-        return render_template("students.html", studentdetails=studentdeets)
-    
-@views.route('/courses')
-def curs():
-    cur = mysql.connection.cursor()
-
-    courses = cur.execute("SELECT * FROM courses")
-
-    if courses > 0:
-        coursedeets = cur.fetchall()
-        return render_template("courses.html", coursedetails=coursedeets)
-
-@views.route('/colleges')
-def cols():
-    cur = mysql.connection.cursor()
-
-    colleges = cur.execute("SELECT * FROM colleges")
-
-    if colleges > 0:
-        collegedeets = cur.fetchall()
-        return render_template("colleges.html", collegedetails=collegedeets)
 
 @views.route('/search', methods=['GET', 'POST'])
 def search():

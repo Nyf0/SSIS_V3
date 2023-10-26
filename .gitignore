@@ -1,1 +1,9 @@
-/.venv
+.venv/
+.env
+__pycache__/
+.git/
+website/__pycache__/
+website/college/__pycache__/
+website/course/__pycache__/
+website/student/__pycache__/
+.gitignore
