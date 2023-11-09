@@ -24,7 +24,6 @@ def add_student():
 
         if exists:
             flash('This ID already exists!', category='error')
-            return redirect('/students')
         else:
             if cor:
                 if len(fname) < 1:
@@ -39,6 +38,8 @@ def add_student():
                     student.add()
                     flash('Student added successfully!', category='success')
                     return redirect('/students')
+            else:
+                flash('Course does not exist!', category='error')
         
     return render_template("add_student.html")
 

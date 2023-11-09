@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Courses{% endblock%}
 {% block content %}
+<br>
+<div class="form-group" align="right">
+    <button type="button" class="btn btn-primary" onclick="location.href='/add-course'">Add course</button>
+</div>
 <table class="table" id="courses">
     <thead>
       <tr>
@@ -29,9 +33,6 @@
         {% endfor %}
     </tbody>
 </table>
-<div class="form-group" align="right">
-    <button type="button" class="btn btn-primary" onclick="location.href='/add-course'">Add course</button>
-</div>
 
 <script>
     function confirmATION(courseCode) {

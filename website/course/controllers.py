@@ -16,23 +16,26 @@ def add_course():
         college = request.form.get('course_college')
 
         col = models.Course.check_college(college)
+        check_code = models.Course.check_code(code)
 
-        if col:
-            if len(code) < 1:
-                flash('This cannot be empty!', category='error')
-            if len(name) < 1:
-                flash('This cannot be empty!', category='error')
-            elif len(college) < 1:
-                flash('An associated college must exist!', category='error')
-            else:
-                #add course to database
-                course = models.Course(code=code, name=name, college=college)
-                course.add()
-                flash('Course added successfully!', category='success')
-                cur.close()
-                return redirect('/courses')
+        if check_code:
+            flash('This course already exists!', category='error')
         else:
-            flash('College does not exist!', category='error')
+            if col:
+                if len(code) < 1:
+                    flash('This cannot be empty!', category='error')
+                if len(name) < 1:
+                    flash('This cannot be empty!', category='error')
+                elif len(college) < 1:
+                    flash('An associated college must exist!', category='error')
+                else:
+                    #add course to database
+                    course = models.Course(code=code, name=name, college=college)
+                    course.add()
+                    flash('Course added successfully!', category='success')
+                    return redirect('/courses')
+            else:
+                flash('College does not exist!', category='error')
 
     return render_template("add_course.html")
 

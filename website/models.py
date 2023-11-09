@@ -125,7 +125,7 @@ class Course(object):
     
     def check_code(code):
         cur = mysql.connection.cursor()
-        cur.execute("SELECT coode FROM courses WHERE code = %s", (code,))
+        cur.execute("SELECT code FROM courses WHERE code = %s", (code,))
         code = cur.fetchone()
 
         return code
