@@ -4,6 +4,19 @@
 <form method="post">
     <h3 align="center">Add student</h3>
     <div class="form-group">
+        <label for="id">ID</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            id="id" 
+            name="id" 
+            pattern="\d{4}-\d{4}" 
+            placeholder="YYYY-NNNN"
+            title="Enter a valid ID in the format YYYY-NNNN"
+            required
+        />
+    </div>
+    <div class="form-group">
         <label for="fname">First name</label>
         <input 
             type="text" 

@@ -12,7 +12,7 @@ class Student(object):
     def add(self):
         cur = mysql.connection.cursor()
 
-        sql = f"INSERT INTO students (fname, lname, course, gender, level) VALUES ('{self.fname}','{self.lname}','{self.course}','{self.gender}','{self.level}')"
+        sql = f"INSERT INTO students (student_id, fname, lname, course, gender, level) VALUES ('{self.id}','{self.fname}','{self.lname}','{self.course}','{self.gender}','{self.level}')"
         cur.execute(sql)
         mysql.connection.commit()
         cur.close()
@@ -40,6 +40,19 @@ class Student(object):
         result = cursor.fetchall()
         cursor.close()
         return result
+    
+    def check_course(course):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT code FROM courses WHERE code = %s", (course,))
+        cor = cur.fetchone()
+        return cor
+    
+    def check_id(id):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT student_id FROM students WHERE student_id = %s", (id,))
+        ids = cur.fetchone()
+
+        return ids
 
     def delete(self):
         try:
@@ -58,10 +71,14 @@ class Student(object):
             sql = f"UPDATE students SET fname = '{self.fname}', lname = '{self.lname}', course = '{self.course}', gender = '{self.gender}', level = '{self.level}' WHERE student_id = '{self.id}'"
             cursor.execute(sql)
             mysql.connection.commit()
-            cursor.close()
             return True
-        except:
+        except Exception as e:
+            print(e)
             return False
+        
+
+
+
 
 class Course(object):
     def __init__(self, code=None, name=None, college=None):
@@ -99,6 +116,19 @@ class Course(object):
         cur.execute(corquery)
         results = cur.fetchall()
         return results
+    
+    def check_college(college):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT code FROM colleges WHERE code = %s", (college,))
+        col = cur.fetchone()
+        return col
+    
+    def check_code(code):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT coode FROM courses WHERE code = %s", (code,))
+        code = cur.fetchone()
+
+        return code
 
     def delete(self):
         try:

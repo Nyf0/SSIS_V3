@@ -1,7 +1,6 @@
 from flask import render_template, flash, request, redirect
 from . import college
 import website.models as models
-from website import mysql
 
 @college.route('/colleges')
 def cols():

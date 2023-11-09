@@ -1,7 +1,6 @@
 from flask import render_template, flash, request, redirect
 from . import course
 import website.models as models
-from website import mysql
 
 @course.route('/courses')
 def curs():
@@ -11,14 +10,12 @@ def curs():
 
 @course.route('/add-course', methods=['GET', 'POST'])
 def add_course():
-    cur = mysql.connection.cursor()
     if request.method == 'POST':
         code = request.form.get('code')
         name = request.form.get('name')
         college = request.form.get('course_college')
 
-        cur.execute("SELECT code FROM colleges WHERE code = %s", (college,))
-        col = cur.fetchone()
+        col = models.Course.check_college(college)
 
         if col:
             if len(code) < 1:
@@ -28,7 +25,7 @@ def add_course():
             elif len(college) < 1:
                 flash('An associated college must exist!', category='error')
             else:
-                #add student to database
+                #add course to database
                 course = models.Course(code=code, name=name, college=college)
                 course.add()
                 flash('Course added successfully!', category='success')
@@ -41,18 +38,13 @@ def add_course():
 
 @course.route('/edit-course', methods=['GET', 'POST'])
 def edit_course():
-    cur = mysql.connection.cursor()
     if request.method == 'POST':
         code = request.form.get('code')
         name = request.form.get('name')
         college = request.form.get('college')
 
-        # Get the college code from the form
-        college_code = request.form.get('college')
-
         # Check if the college exists in the colleges table
-        cur.execute("SELECT code FROM colleges WHERE code = %s", (college_code,))
-        existing_college = cur.fetchone()
+        existing_college = models.Course.check_college(college)
 
         if existing_college:
             # The college exists, so you can proceed with the UPDATE query
@@ -62,7 +54,6 @@ def edit_course():
         else:
             # The college code doesn't exist in the colleges table
             flash('College does not exist!', category='error')
-        cur.close()
     
     return redirect('/courses')
 
