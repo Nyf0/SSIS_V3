@@ -76,10 +76,17 @@ class Student(object):
             print(e)
             return False
         
-
-
-
-
+    def editID(self, newID):
+        try:
+            cursor = mysql.connection.cursor()
+            sql = f"UPDATE students SET student_id = '{newID}' WHERE student_id = '{self.id}'"
+            cursor.execute(sql)
+            mysql.connection.commit()
+            return True
+        except Exception as e:
+            print(e)
+            return False
+        
 class Course(object):
     def __init__(self, code=None, name=None, college=None):
         self.code = code
@@ -151,6 +158,17 @@ class Course(object):
             return True
         except:
             return False
+        
+    def editcode(self, newcode):
+        try:
+            cursor = mysql.connection.cursor()
+            sql = f"UPDATE courses SET code = '{newcode}' WHERE code = '{self.code}'"
+            cursor.execute(sql)
+            mysql.connection.commit()
+            cursor.close()
+            return True
+        except:
+            return False
 
 class College(object):
     def __init__(self, code=None, name=None):
@@ -200,10 +218,28 @@ class College(object):
         except:
             return False
         
+    def check_code(code):
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT code FROM colleges WHERE code = %s", (code,))
+        code = cur.fetchone()
+
+        return code
+        
     def edit(self):
         try:
             cursor = mysql.connection.cursor()
             sql = f"UPDATE colleges SET name = '{self.name}' WHERE code = '{self.code}'"
+            cursor.execute(sql)
+            mysql.connection.commit()
+            cursor.close()
+            return True
+        except:
+            return False
+        
+    def editcode(self, new):
+        try:
+            cursor = mysql.connection.cursor()
+            sql = f"UPDATE colleges SET code = '{new}' WHERE code = '{self.code}'"
             cursor.execute(sql)
             mysql.connection.commit()
             cursor.close()

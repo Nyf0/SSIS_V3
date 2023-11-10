@@ -56,20 +56,32 @@
             class="form-control" 
             id="gender" 
             name="gender" 
-            placeholder="Enter gender"
+            pattern="Male|Female" 
+            title="Enter either 'Male' or 'Female'"
+            placeholder="Enter gender (Male or Female)"
             required
         />
     </div>
     <div class="form-group">
-        <label for="exampleFormControlSelect2">Select year level</label>
-        <select multiple class="form-control" id="level" name="level">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-      </div>
+        <label for="level">Select year level: </label>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary">
+                <input type="checkbox" name="level" value="1"> 1
+            </label>
+            <label class="btn btn-secondary">
+                <input type="checkbox" name="level" value="2"> 2
+            </label>
+            <label class="btn btn-secondary">
+                <input type="checkbox" name="level" value="3"> 3
+            </label>
+            <label class="btn btn-secondary">
+                <input type="checkbox" name="level" value="4"> 4
+            </label>
+            <label class="btn btn-secondary">
+                <input type="checkbox" name="level" value="5"> 5
+            </label>
+        </div>
+    </div>
       <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 {% endblock %}

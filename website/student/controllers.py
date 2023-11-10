@@ -46,32 +46,50 @@ def add_student():
 @student.route('/edit-student', methods=['GET', 'POST'])
 def edit_student():
     if request.method == 'POST':
-        studID = request.form.get('ID')
+        studID = request.form.get('id')
         fname = request.form.get('fname')
         lname = request.form.get('lname')
         course = request.form.get('course')
         gender = request.form.get('gender')
         level = request.form.get('level')
+        newID = request.form.get('newID')
 
         if not studID or not fname or not lname or not course or not gender or not level:
             flash('Please fill out all fields!', category='error')
             return redirect('/students')
 
-        # Get the course code from the form
-        course_code = request.form.get('course')
-
         # Check if the course code exists in the courses table
-        existing_course = models.Student.check_course(course_code)
+        existing_course = models.Student.check_course(course)
 
-        if existing_course:
-            # The course code exists, so you can proceed with the UPDATE query
-            student = models.Student(id=studID, fname=fname, lname=lname, course=course, gender=gender, level=level)
-            student.edit()
-            
-            flash('Student edited successfully!', category='success')
+        # Check if the ID is updated
+        if newID == studID:
+            if existing_course:
+                # The course code exists, so you can proceed with the UPDATE query
+                student = models.Student(id=studID, fname=fname, lname=lname, course=course, gender=gender, level=level)
+                student.edit()
+                
+                flash('Student edited successfully!', category='success')
+            else:
+                    # The course code doesn't exist in the courses table
+                    flash('Course does not exist!', category='error')
         else:
-                # The course code doesn't exist in the courses table
-                flash('Course does not exist!', category='error')
+            # Checks if the new id input is already used
+            checkID = models.Student.check_id(newID)
+            if checkID:
+                flash('ID already exists! Try another one!', category='error')
+            else:
+                if existing_course:
+                    # The course code exists, so you can proceed with the UPDATE query
+                    student = models.Student(id=studID, fname=fname, lname=lname, course=course, gender=gender, level=level)
+                    # Normal edit first
+                    student.edit()
+                    # Then change the ID
+                    student.editID(newID)
+                    
+                    flash('Student edited successfully!', category='success')
+                else:
+                    # The course code doesn't exist in the courses table
+                    flash('Course does not exist!', category='error')
     return redirect('/students')
 
 @student.route('/delete-student', methods=['POST'])

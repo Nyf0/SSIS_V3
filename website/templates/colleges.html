@@ -13,7 +13,8 @@
         {% for detail in collegedetails %}  
         <tr>
           <form method="post" action="/edit-college" onsubmit="return confirmATION('{{detail[0]}}')">
-            <td><input type="hidden" name="code" value="{{detail[0]}}">{{detail[0]}}</td>
+            <td><input type="hidden" name="newcode" value="{{detail[0]}}"><div contenteditable="true">{{detail[0]}}</div></td>
+            <td hidden><input type="hidden" name="code" value="{{detail[0]}}">{{detail[0]}}</td>
             <td><input type="hidden" name="name" value="{{detail[1]}}"><div contenteditable="true">{{detail[1]}}</div></td>
             <td>
               <button type="submit" class="btn btn-warning">Edit</button>

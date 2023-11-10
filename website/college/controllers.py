@@ -32,10 +32,22 @@ def edit_college():
     if request.method == 'POST':
         code = request.form.get('code')
         name = request.form.get('name')
+        new = request.form.get('newcode')
 
-        college = models.College(code=code, name=name)
-        college.edit()
-        flash('College editted successfully!', category='success')
+        if code == new:
+            college = models.College(code=code, name=name)
+            college.edit()
+            flash('College editted successfully!', category='success')
+        else:
+            check = models.College.check_code(new)
+
+            if check:
+                flash('This College code is already in use! Try another one.', category='error')
+            else:
+                college = models.College(code=code, name=name)
+                college.edit()
+                college.editcode(new)
+                flash('College editted successfully!', category='success')
     
     return redirect('/colleges')
 

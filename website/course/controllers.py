@@ -45,18 +45,34 @@ def edit_course():
         code = request.form.get('code')
         name = request.form.get('name')
         college = request.form.get('college')
+        newcode = request.form.get('newcode')
 
         # Check if the college exists in the colleges table
         existing_college = models.Course.check_college(college)
 
-        if existing_college:
-            # The college exists, so you can proceed with the UPDATE query
-            course = models.Course(code=code, name=name, college=college)
-            course.edit()
-            flash('Course editted successfully!', category='success')
+        if newcode == code:
+            if existing_college:
+                # The college exists, so you can proceed with the UPDATE query
+                course = models.Course(code=code, name=name, college=college)
+                course.edit()
+                flash('Course editted successfully!', category='success')
+            else:
+                # The college code doesn't exist in the colleges table
+                flash('College does not exist!', category='error')
         else:
-            # The college code doesn't exist in the colleges table
-            flash('College does not exist!', category='error')
+            check = models.Course.check_code(newcode)
+            if check:
+                flash('Course code already in use! Try another one.', category='error')
+            else:
+                if existing_college:
+                    # The college exists, so you can proceed with the UPDATE query
+                    course = models.Course(code=code, name=name, college=college)
+                    course.edit()
+                    course.editcode(newcode)
+                    flash('Course editted successfully!', category='success')
+                else:
+                    # The college code doesn't exist in the colleges table
+                    flash('College does not exist!', category='error')
     
     return redirect('/courses')
 
