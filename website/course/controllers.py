@@ -10,6 +10,7 @@ def curs():
 
 @course.route('/add-course', methods=['GET', 'POST'])
 def add_course():
+    colleges = models.College.all()
     if request.method == 'POST':
         code = request.form.get('code')
         name = request.form.get('name')
@@ -37,7 +38,7 @@ def add_course():
             else:
                 flash('College does not exist!', category='error')
 
-    return render_template("add_course.html")
+    return render_template("add_course.html", colleges = colleges)
 
 @course.route('/edit-course', methods=['GET', 'POST'])
 def edit_course():

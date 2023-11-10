@@ -22,15 +22,14 @@
             placeholder="Enter course name"
         />
     </div>
+    <label for="college">College: </label>
     <div class="form-group">
-        <label for="course_college">College</label>
-        <input 
-            type="text" 
-            class="form-control" 
-            id="course_college" 
-            name="course_college" 
-            placeholder="Enter associated college code"
-        />
+        <select class="form-control" id="college" name="college" required>
+            <option value="">Select college</option>
+            {% for college in colleges %}
+            <option value="{{ college[0] }}">{{college[0]}}</option>
+            {% endfor %}
+        </select>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

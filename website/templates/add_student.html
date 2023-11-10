@@ -38,30 +38,26 @@
             required
         />
     </div>
+    <label for="course">Student Course: </label>
     <div class="form-group">
-        <label for="student_course">Course</label>
-        <input 
-            type="text" 
-            class="form-control" 
-            id="student_course" 
-            name="student_course" 
-            placeholder="Enter course"
-            required
-        />
+        <select class="form-control" id="student_course" name="student_course" required>
+            <option value="">Select course</option>
+            {% for course in courses %}
+            <option value="{{ course[0] }}">{{course[0]}}</option>
+            {% endfor %}
+        </select>
     </div>
     <div class="form-group">
-        <label for="gender">Gender</label>
-        <input 
-            type="text" 
-            class="form-control" 
-            id="gender" 
-            name="gender" 
-            pattern="Male|Female" 
-            title="Enter either 'Male' or 'Female'"
-            placeholder="Enter gender (Male or Female)"
-            required
-        />
-    </div>
+        <label for="gender">Gender: </label>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary">
+                <input type="checkbox" name="gender" value="Male"> Male
+            </label>
+            <label class="btn btn-secondary">
+                <input type="checkbox" name="gender" value="Female"> Female
+            </label>
+        </div>
+    </div>    
     <div class="form-group">
         <label for="level">Select year level: </label>
         <div class="btn-group btn-group-toggle" data-toggle="buttons">

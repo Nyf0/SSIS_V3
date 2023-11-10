@@ -11,6 +11,8 @@ def view_studs():
 
 @student.route('/students/add-student', methods=['GET', 'POST'])
 def add_student():
+    courses = models.Course.all()
+    
     if request.method == 'POST':
         id = request.form.get('id')
         fname = request.form.get('fname')
@@ -41,7 +43,7 @@ def add_student():
             else:
                 flash('Course does not exist!', category='error')
         
-    return render_template("add_student.html")
+    return render_template("add_student.html", courses = courses)
 
 @student.route('/edit-student', methods=['GET', 'POST'])
 def edit_student():
