@@ -22,8 +22,8 @@
               <td hidden><input type="hidden" name="code" value="{{detail[0]}}">{{detail[0]}}</td>
               <td><input type="hidden" name="name" value="{{detail[1]}}"><div contenteditable="true">{{detail[1]}}</div></td>
               <td><div class="form-group">
-                <select class="form-control" id="college" name="college" required>
-                    <option value="">{{detail[2]}}</option>
+                <select class="form-control" id="college" name="college">
+                    <option value="{{detail[2]}}">{{detail[2]}}</option>
                     {% for college in colleges %}
                     <option value="{{ college[0] }}">{{college[0]}}</option>
                     {% endfor %}

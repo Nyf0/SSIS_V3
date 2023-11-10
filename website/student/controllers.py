@@ -57,13 +57,18 @@ def edit_student():
         level = request.form.get('level')
         newID = request.form.get('newID')
 
-        if not studID or not fname or not lname or not course or not gender or not level:
+        if not studID or not fname or not lname or not gender or not course or not level:
             flash('Please fill out all fields!', category='error')
             return redirect('/students')
 
         # Check if the new ID follows the right format
         if not re.match(r'^\d{4}-\d{4}$', newID):
             flash('New ID should follow the format YYYY-NNNN', category='error')
+            return redirect('/students')
+        
+        # Check if the gender is valid
+        if gender not in ['Male', 'Female']:
+            flash('Gender should be "Male" or "Female"', category='error')
             return redirect('/students')
         
         # Check if the course code exists in the courses table
