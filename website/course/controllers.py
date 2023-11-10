@@ -5,8 +5,9 @@ import website.models as models
 @course.route('/courses')
 def curs():
     courses = models.Course.all()
+    colleges = models.College.all()
 
-    return render_template("courses.html", coursedetails=courses)
+    return render_template("courses.html", coursedetails=courses, colleges = colleges)
 
 @course.route('/add-course', methods=['GET', 'POST'])
 def add_course():

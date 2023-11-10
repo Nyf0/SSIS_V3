@@ -6,13 +6,14 @@ import re
 @student.route('/students')
 def view_studs():
     students = models.Student.all()
+    courses = models.Course.all()
 
-    return render_template("students.html", studentdetails=students)
+    return render_template("students.html", studentdetails=students, courses = courses)
 
 @student.route('/students/add-student', methods=['GET', 'POST'])
 def add_student():
     courses = models.Course.all()
-    
+
     if request.method == 'POST':
         id = request.form.get('id')
         fname = request.form.get('fname')

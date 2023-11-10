@@ -26,7 +26,14 @@
             <td hidden><input type="hidden" name="id" value="{{detail[0]}}">{{detail[0]}}</td>
             <td><input type="hidden" name="fname" value="{{detail[1]}}"><div contenteditable="true">{{detail[1]}}</div></td>
             <td><input type="hidden" name="lname" value="{{detail[2]}}"><div contenteditable="true">{{detail[2]}}</div></td>
-            <td><input type="hidden" name="course" value="{{detail[3]}}"><div contenteditable="true">{{detail[3]}}</div></td>
+            <td><div class="form-group">
+              <select class="form-control" id="course" name="course" required>
+                  <option value="">{{detail[3]}}</option>
+                  {% for course in courses %}
+                  <option value="{{ course[0] }}">{{course[0]}}</option>
+                  {% endfor %}
+              </select>
+            </div></td>
             <td><input type="hidden" name="gender" value="{{detail[4]}}"><div contenteditable="true">{{detail[4]}}</div></td>
             <td><input type="hidden" name="level" value="{{detail[5]}}"><div contenteditable="true">{{detail[5]}}</div></td>
             <td>
