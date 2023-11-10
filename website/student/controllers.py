@@ -1,7 +1,7 @@
 from flask import render_template, flash, request, redirect
 from . import student
 import website.models as models
-from re import match
+import re
 
 @student.route('/students')
 def view_studs():
@@ -58,6 +58,11 @@ def edit_student():
             flash('Please fill out all fields!', category='error')
             return redirect('/students')
 
+        # Check if the new ID follows the right format
+        if not re.match(r'^\d{4}-\d{4}$', newID):
+            flash('New ID should follow the format YYYY-NNNN', category='error')
+            return redirect('/students')
+        
         # Check if the course code exists in the courses table
         existing_course = models.Student.check_course(course)
 
