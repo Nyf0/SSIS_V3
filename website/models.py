@@ -26,7 +26,7 @@ class Student(object):
     
     def search(key):
         cur = mysql.connection.cursor()
-        studquery = f"SELECT * FROM students WHERE student_id LIKE '{key}' OR fname LIKE '%{key}%' OR lname LIKE '%{key}%' OR course LIKE '{key}' OR gender LIKE '{key}' OR level LIKE '{key}'"
+        studquery = f"SELECT students.student_id, students.fname, students.lname, students.course, students.gender, students.level, colleges.code, colleges.name FROM students INNER JOIN courses ON students.course = courses.code INNER JOIN colleges ON courses.college = colleges.code WHERE students.student_id LIKE '{key}' OR students.fname LIKE '%{key}%' OR students.lname LIKE '%{key}%' OR students.course LIKE '{key}' OR students.gender LIKE '{key}' OR students.level LIKE '{key}'"
         cur.execute(studquery)
         results = cur.fetchall()
         return results
@@ -130,6 +130,12 @@ class Course(object):
         col = cur.fetchone()
         return col
     
+    def get():
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT students.student_id, students.fname, students.lname, students.course, students.gender, students.level, colleges.code, colleges.name FROM students INNER JOIN courses ON students.course = courses.code INNER JOIN colleges ON courses.college = colleges.code")
+        col = cur.fetchall()
+        return col
+
     def check_code(code):
         cur = mysql.connection.cursor()
         cur.execute("SELECT code FROM courses WHERE code = %s", (code,))

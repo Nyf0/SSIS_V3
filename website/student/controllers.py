@@ -5,7 +5,8 @@ import re
 
 @student.route('/students')
 def view_studs():
-    students = models.Student.all()
+    #students = models.Student.all()
+    students = models.Course.get()
     courses = models.Course.all()
 
     return render_template("students.html", studentdetails=students, courses = courses)

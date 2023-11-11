@@ -1,8 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Students{% endblock%}
+{% block title %}Students{% endblock %}
 {% block content %}
 <br>
-
 <div class="form-group" align="right">
   <button type="button" class="btn btn-primary" onclick="location.href='/students/add-student'">Add student</button>
 </div>
@@ -13,6 +12,7 @@
         <th scope="col">First Name</th>
         <th scope="col">Last Name</th>
         <th scope="col">Course</th>
+        <th scope="col">College</th>
         <th scope="col">Gender</th>
         <th scope="col">Year Level</th>
         <th></th>
@@ -27,14 +27,24 @@
             <td><input type="hidden" name="fname" value="{{detail[1]}}"><div contenteditable="true">{{detail[1]}}</div></td>
             <td><input type="hidden" name="lname" value="{{detail[2]}}"><div contenteditable="true">{{detail[2]}}</div></td>
             <td><div class="form-group">
-              <select class="form-control" id="course" name="course">
+              <select class="form-control course" name="course">
                   <option value="{{ detail[3] }}">{{detail[3]}}</option>
                   {% for course in courses %}
                   <option value="{{ course[0] }}">{{course[0]}}</option>
                   {% endfor %}
               </select>
             </div></td>
-            <td><input type="hidden" name="gender" value="{{detail[4]}}"><div contenteditable="true">{{detail[4]}}</div></td>
+            <td><input type="hidden" name="college" value="">{{detail[7]}}({{detail[6]}})</td>
+            <td><div class="form-group">
+              <select class="form-control gender" name="gender">
+                  <option value="{{ detail[4] }}">{{detail[4]}}</option>
+                  {% if detail[4] == "Male": %}
+                    <option value="Female">Female</option>
+                    {% else: %}
+                      <option value="Male">Male</option>
+                    {% endif %}
+              </select>
+            </div></td>
             <td><input type="hidden" name="level" value="{{detail[5]}}"><div contenteditable="true">{{detail[5]}}</div></td>
             <td>
               <button type="submit" class="btn btn-warning">Edit</button>
@@ -48,8 +58,6 @@
         {% endfor %}
     </tbody>
 </table>
-
-
 
 <script>
   function confirmATION(studCode) {

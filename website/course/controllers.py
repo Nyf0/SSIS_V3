@@ -15,7 +15,7 @@ def add_course():
     if request.method == 'POST':
         code = request.form.get('code')
         name = request.form.get('name')
-        college = request.form.get('course_college')
+        college = request.form.get('college')
 
         col = models.Course.check_college(college)
         check_code = models.Course.check_code(code)

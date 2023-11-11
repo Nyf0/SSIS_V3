@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Colleges{% endblock%}
 {% block content %}
+<br>
+<!-- <input type="text" id="searchInput" placeholder="Search for colleges..."> -->
+<br>
 <table class="table" id="colleges">
     <thead>
       <tr>
@@ -32,6 +35,7 @@
     <button type="button" class="btn btn-primary" onclick="location.href='/add-college'">Add college</button>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   function confirmATION(collegeCode) {
       if (confirm('Are you sure you want to modify this college permanently?')) {
@@ -43,5 +47,21 @@
       }
   }
 </script>
+<script>
+  $(document).ready(function() {
+    $("#searchInput").on("input", function() {
+      var searchText = $(this).val().toUpperCase();
+      $("#colleges tbody tr").each(function() {  // Change "students" to "colleges" here
+        var rowText = $(this).text().toUpperCase();
+        if (rowText.includes(searchText)) {
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
+      });
+    });
+  });
+</script>
+
 
 {% endblock %}
