@@ -28,9 +28,9 @@
             <td><input type="hidden" name="lname" value="{{detail[2]}}"><div contenteditable="true">{{detail[2]}}</div></td>
             <td><div class="form-group">
               <select class="form-control course" name="course">
-                  <option value="{{ detail[3] }}">{{detail[3]}}</option>
+                  <option value="{{detail[3]}}">{{detail[3]}}</option>
                   {% for course in courses %}
-                  <option value="{{ course[0] }}">{{course[0]}}</option>
+                  <option value="{{course[0]}}">{{course[0]}}</option>
                   {% endfor %}
               </select>
             </div></td>

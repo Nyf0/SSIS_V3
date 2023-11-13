@@ -19,7 +19,7 @@ def add_student():
         id = request.form.get('id')
         fname = request.form.get('fname')
         lname = request.form.get('lname')
-        course = request.form.get('student_course')
+        course = request.form.get('course')
         gender = request.form.get('gender')
         level = request.form.get('level')
 
