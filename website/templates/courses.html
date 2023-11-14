@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Courses{% endblock%}
 {% block content %}
-<br>
-<!--<input type="text" id="searchInput" placeholder="Search for courses...">-->
+<a href="/add-course">
+<div class="floating-icon">
+  <i class="fa fa-solid fa-plus"></i>
+</div>
+</a>
 
 <div class="form-group" align="right">
     <button type="button" class="btn btn-primary" onclick="location.href='/add-course'">Add course</button>

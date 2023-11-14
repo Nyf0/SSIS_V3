@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Colleges{% endblock%}
 {% block content %}
-<br>
-<!-- <input type="text" id="searchInput" placeholder="Search for colleges..."> -->
-<br>
+<a href="/add-college">
+  <div class="floating-icon">
+    <i class="fa fa-solid fa-plus"></i>
+  </div>
+</a>
 <table class="table" id="colleges">
     <thead>
       <tr>
@@ -31,9 +33,6 @@
         {% endfor %}
     </tbody>
 </table>
-<div class="form-group" align="right">
-    <button type="button" class="btn btn-primary" onclick="location.href='/add-college'">Add college</button>
-</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
