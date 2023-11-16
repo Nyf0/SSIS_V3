@@ -34,8 +34,6 @@ def add_student():
                     flash('This cannot be empty!', category='error')
                 if len(lname) < 1:
                     flash('This cannot be empty!', category='error')
-                elif len(course) < 1:
-                    flash('A course must be provided!', category='error')
                 else:
                     #add student to database
                     student = models.Student(id=id, fname=fname, lname=lname, course=course, gender=gender, level=level)
